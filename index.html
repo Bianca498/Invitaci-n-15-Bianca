@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tienes una invitación 💌</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Georgia, serif;
+    background: #f8eee8;
+    color: #4a2929;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.card {
+    width: 100%;
+    max-width: 430px;
+    background: #fffaf7;
+    border-radius: 25px;
+    padding: 30px 22px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(70, 30, 30, .15);
+}
+
+.small {
+    letter-spacing: 3px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #9d6666;
+}
+
+h1 {
+    font-size: 34px;
+    margin: 12px 0 8px;
+}
+
+.subtitle {
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.roses {
+    font-size: 35px;
+    margin: 10px 0 18px;
+}
+
+.scratch-container {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    margin: 25px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #ead0ca;
+    touch-action: none;
+}
+
+.secret {
+    position: absolute;
+    inset: 0;
+    background: #fff0ed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.secret-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.secret-text {
+    font-size: 17px;
+    line-height: 1.4;
+}
+
+#scratchCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.instruction {
+    font-size: 14px;
+    color: #815858;
+    margin-top: -12px;
+}
+
+.hidden {
+    display: none;
+}
+
+.confirm-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #ead8d3;
+}
+
+button {
+    border: none;
+    background: #8d4d4d;
+    color: white;
+    padding: 15px 28px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-family: Georgia, serif;
+    cursor: pointer;
+    transition: transform .2s;
+}
+
+button:active {
+    transform: scale(.96);
+}
+
+.heart {
+    font-size: 25px;
+    margin: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="roses">🌹</div>
+
+    <div class="small">Una invitación especial</div>
+
+    <h1>Tienes un sitio reservado</h1>
+
+    <p class="subtitle">
+        Pero antes de descubrirlo...
+        hay una pequeña sorpresa para ti.
+    </p>
+
+    <div class="scratch-container">
+
+        <div class="secret">
+            <div class="secret-title">✨ ¡Sorpresa! ✨</div>
+
+            <div class="secret-text">
+                Tu sitio está reservado.<br>
+                Ahora solo falta una cosa...
+            </div>
+
+            <div class="heart">♥</div>
+        </div>
+
+        <canvas id="scratchCanvas"></canvas>
+
+    </div>
+
+    <p class="instruction">
+        ☝️ Rasca con el dedo para descubrir la sorpresa
+    </p>
+
+    <div class="confirm-section">
+
+        <p>
+            ¿Vas a venir?
+        </p>
+
+        <button onclick="mostrarConfirmacion()">
+            Confirmar asistencia
+        </button>
+
+        <div id="confirmacion" class="hidden">
+            <p>
+                💌 ¡Perfecto!<br>
+                Tu sitio queda reservado.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+const canvas = document.getElementById("scratchCanvas");
+const ctx = canvas.getContext("2d");
+
+function ajustarCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+
+    ctx.fillStyle = "#b98f8b";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#f4ddd8";
+    ctx.font = "bold 22px Georgia";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(
+        "RASCA AQUÍ ✨",
+        canvas.width / 2,
+        canvas.height / 2
+    );
+}
+
+ajustarCanvas();
+window.addEventListener("resize", ajustarCanvas);
+
+let dibujando = false;
+
+function rascar(e) {
+    if (!dibujando) return;
+
+    const rect = canvas.getBoundingClientRect();
+
+    let x;
+    let y;
+
+    if (e.touches) {
+        x = e.touches[0].clientX - rect.left;
+        y = e.touches[0].clientY - rect.top;
+    } else {
+        x = e.clientX - rect.left;
+        y = e.clientY - rect.top;
+    }
+
+    ctx.globalCompositeOperation = "destination-out";
+
+    ctx.beginPath();
+    ctx.arc(x, y, 22, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+canvas.addEventListener("mousedown", () => {
+    dibujando = true;
+});
+
+canvas.addEventListener("mouseup", () => {
+    dibujando = false;
+});
+
+canvas.addEventListener("mouseleave", () => {
+    dibujando = false;
+});
+
+canvas.addEventListener("mousemove", rascar);
+
+canvas.addEventListener("touchstart", (e) => {
+    dibujando = true;
+    rascar(e);
+}, { passive: false });
+
+canvas.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+    rascar(e);
+}, { passive: false });
+
+canvas.addEventListener("touchend", () => {
+    dibujando = false;
+});
+
+function mostrarConfirmacion() {
+    document.getElementById("confirmacion").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
