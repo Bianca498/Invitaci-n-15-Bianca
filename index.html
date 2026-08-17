@@ -3,41 +3,27 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Has sido invitado</title>
 
 <style>
-
-/* =========================
-   BASE
-========================= */
 
 * {
     box-sizing: border-box;
 }
 
 body {
-
     margin: 0;
-
     min-height: 100vh;
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: Georgia, "Times New Roman", serif;
 
     background: #e6d0d5;
-
     color: #604b52;
 
     display: flex;
-
     justify-content: center;
-
     align-items: center;
 
     padding: 25px;
@@ -53,7 +39,6 @@ body {
 #entrada {
 
     position: fixed;
-
     inset: 0;
 
     z-index: 100;
@@ -61,24 +46,20 @@ body {
     background: #e6d0d5;
 
     display: flex;
-
     justify-content: center;
-
     align-items: center;
 
     padding: 25px;
 
     transition:
-        opacity 0.8s ease,
-        visibility 0.8s ease;
+        opacity .8s ease,
+        visibility .8s ease;
 }
 
 #entrada.oculta {
 
     opacity: 0;
-
     visibility: hidden;
-
     pointer-events: none;
 }
 
@@ -89,7 +70,6 @@ body {
     max-width: 360px;
 
     padding: 35px;
-
 }
 
 .entrada-sakura {
@@ -101,7 +81,7 @@ body {
 
 .entrada-titulo {
 
-    font-size: 28px;
+    font-size: 29px;
 
     font-weight: normal;
 
@@ -142,6 +122,14 @@ body {
     box-shadow:
         0 6px 18px
         rgba(90,65,72,.20);
+
+    transition:
+        transform .2s ease;
+}
+
+.abrir:active {
+
+    transform: scale(.94);
 }
 
 
@@ -215,13 +203,11 @@ body {
             rotate(0deg);
 
         opacity: 0;
-
     }
 
     10% {
 
         opacity: .6;
-
     }
 
     50% {
@@ -230,13 +216,11 @@ body {
             translateY(50vh)
             translateX(35px)
             rotate(180deg);
-
     }
 
     90% {
 
         opacity: .6;
-
     }
 
     100% {
@@ -247,7 +231,6 @@ body {
             rotate(360deg);
 
         opacity: 0;
-
     }
 }
 
@@ -307,7 +290,6 @@ body {
 .rama-arriba-izq {
 
     top: 14px;
-
     left: 12px;
 
     transform: rotate(-25deg);
@@ -316,16 +298,16 @@ body {
 .rama-arriba-der {
 
     top: 14px;
-
     right: 12px;
 
-    transform: scaleX(-1) rotate(-25deg);
+    transform:
+        scaleX(-1)
+        rotate(-25deg);
 }
 
 .rama-abajo-izq {
 
     bottom: 10px;
-
     left: 10px;
 
     transform: rotate(25deg);
@@ -336,13 +318,17 @@ body {
 .rama-abajo-der {
 
     bottom: 10px;
-
     right: 10px;
 
-    transform: scaleX(-1) rotate(25deg);
+    transform:
+        scaleX(-1)
+        rotate(25deg);
 
     opacity: .3;
 }
+
+
+/* LAZOS */
 
 .lazo {
 
@@ -354,18 +340,17 @@ body {
 .lazo-izq {
 
     top: 78px;
-
     left: 20px;
-
 }
 
 .lazo-der {
 
     top: 78px;
-
     right: 20px;
-
 }
+
+
+/* ESTRELLAS */
 
 .estrellita {
 
@@ -379,14 +364,12 @@ body {
 .est1 {
 
     top: 135px;
-
     left: 48px;
 }
 
 .est2 {
 
     top: 145px;
-
     right: 48px;
 }
 
@@ -532,7 +515,6 @@ h1 {
     inset: 0;
 
     width: 100%;
-
     height: 100%;
 }
 
@@ -588,47 +570,14 @@ h1 {
     box-shadow:
         0 6px 16px
         rgba(90,65,72,.20);
+
+    transition:
+        transform .2s ease;
 }
 
 .confirm-button:active {
 
     transform: scale(.95);
-}
-
-
-/* =========================
-   MÚSICA
-========================= */
-
-.music-button {
-
-    position: fixed;
-
-    right: 18px;
-
-    bottom: 18px;
-
-    z-index: 50;
-
-    width: 48px;
-
-    height: 48px;
-
-    border-radius: 50%;
-
-    border: 1px solid #c7a8af;
-
-    background: #f4e5e8;
-
-    color: #80616a;
-
-    font-size: 20px;
-
-    box-shadow:
-        0 5px 15px
-        rgba(90,65,72,.18);
-
-    cursor: pointer;
 }
 
 </style>
@@ -673,7 +622,7 @@ h1 {
 
 
 <!-- =========================
-     ELEMENTOS FLOTANTES
+     PÉTALOS
 ========================= -->
 
 <div class="flotante petal p1">
@@ -687,6 +636,9 @@ h1 {
 <div class="flotante petal p3">
     🌸
 </div>
+
+
+<!-- ESTRELLAS -->
 
 <div class="flotante star s1">
     ⭐
@@ -767,7 +719,9 @@ h1 {
     </p>
 
 
-    <!-- RASCA -->
+    <!-- =========================
+         RASCA
+    ========================= -->
 
     <div class="scratch-container">
 
@@ -803,7 +757,9 @@ h1 {
     </p>
 
 
-    <!-- CONFIRMACIÓN -->
+    <!-- =========================
+         CONFIRMACIÓN
+    ========================= -->
 
     <div class="confirm-section">
 
@@ -824,95 +780,28 @@ h1 {
 
     </div>
 
+
 </div>
-
-
-<!-- BOTÓN DE MÚSICA -->
-
-<button
-    class="music-button"
-    id="musicButton"
-    onclick="alternarMusica()">
-
-    🎵
-
-</button>
-
-
-<!-- =========================
-     MÚSICA
-========================= -->
-
-<audio
-    id="musica"
-    loop>
-
-    <source
-        src="musica.mp3"
-        type="audio/mpeg">
-
-</audio>
 
 
 <script>
 
 
 /* =========================
-   ENTRADA + MÚSICA
+   ABRIR INVITACIÓN
 ========================= */
-
-const entrada =
-    document.getElementById("entrada");
-
-const musica =
-    document.getElementById("musica");
-
-const musicButton =
-    document.getElementById("musicButton");
-
 
 function abrirInvitacion() {
 
-    entrada.classList.add("oculta");
-
-    musica.volume = 0.35;
-
-    musica.play().catch(() => {
-
-        console.log(
-            "La música necesita interacción del usuario."
-        );
-
-    });
+    document
+        .getElementById("entrada")
+        .classList.add("oculta");
 
 }
 
 
 /* =========================
-   CONTROL DE MÚSICA
-========================= */
-
-function alternarMusica() {
-
-    if (musica.paused) {
-
-        musica.play();
-
-        musicButton.textContent = "🎵";
-
-    } else {
-
-        musica.pause();
-
-        musicButton.textContent = "🔇";
-
-    }
-
-}
-
-
-/* =========================
-   RASCA
+   RASCA INTERACTIVO
 ========================= */
 
 const canvas =
@@ -1060,28 +949,37 @@ function rascar(e) {
 /* RATÓN */
 
 canvas.addEventListener(
+
     "mousedown",
+
     () => {
 
         dibujando = true;
 
     }
+
 );
 
 
 canvas.addEventListener(
+
     "mouseup",
+
     () => {
 
         dibujando = false;
 
     }
+
 );
 
 
 canvas.addEventListener(
+
     "mousemove",
+
     rascar
+
 );
 
 
