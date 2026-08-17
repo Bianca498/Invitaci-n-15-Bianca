@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tienes una invitación 💌</title>
+<title>Invitación 💌</title>
 
 <style>
 * {
@@ -29,7 +29,7 @@ body {
     border-radius: 25px;
     padding: 30px 22px;
     text-align: center;
-    box-shadow: 0 10px 35px rgba(70, 30, 30, .15);
+    box-shadow: 0 10px 35px rgba(70,30,30,.15);
 }
 
 .roses {
@@ -105,22 +105,22 @@ h1 {
     margin-top: -12px;
 }
 
-button {
-    border: none;
-    background: #8d4d4d;
-    color: white;
-    padding: 15px 28px;
-    border-radius: 30px;
-    font-size: 16px;
-    font-family: Georgia, serif;
-    cursor: pointer;
-}
-
 .confirm-section {
     margin-top: 25px;
     padding-top: 20px;
     border-top: 1px solid #ead8d3;
 }
+
+.confirm-button {
+    display: inline-block;
+    background: #8d4d4d;
+    color: white;
+    padding: 15px 28px;
+    border-radius: 30px;
+    font-size: 16px;
+    text-decoration: none;
+}
+
 </style>
 </head>
 
@@ -176,9 +176,12 @@ button {
             ¿Vas a venir?
         </p>
 
-        <button onclick="mostrarConfirmacion()">
+        <a
+        class="confirm-button"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSeCIwTVLLmEXsi31U8dWNEg9ObIDLVrr-SPmxxfvCVBac0UDg/viewform?usp=publish-editor"
+        target="_blank">
             Confirmar asistencia
-        </button>
+        </a>
 
     </div>
 
@@ -197,17 +200,10 @@ function ajustarCanvas() {
     canvas.height = rect.height;
 
     ctx.fillStyle = "#b98f8b";
-    ctx.fillRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "#f4ddd8";
-
     ctx.font = "bold 22px Georgia";
-
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
@@ -220,10 +216,7 @@ function ajustarCanvas() {
 
 ajustarCanvas();
 
-window.addEventListener(
-    "resize",
-    ajustarCanvas
-);
+window.addEventListener("resize", ajustarCanvas);
 
 let dibujando = false;
 
@@ -231,117 +224,59 @@ function rascar(e) {
 
     if (!dibujando) return;
 
-    const rect =
-        canvas.getBoundingClientRect();
+    const rect = canvas.getBoundingClientRect();
 
     let x;
     let y;
 
     if (e.touches) {
 
-        x =
-            e.touches[0].clientX
-            - rect.left;
-
-        y =
-            e.touches[0].clientY
-            - rect.top;
+        x = e.touches[0].clientX - rect.left;
+        y = e.touches[0].clientY - rect.top;
 
     } else {
 
-        x =
-            e.clientX
-            - rect.left;
+        x = e.clientX - rect.left;
+        y = e.clientY - rect.top;
 
-        y =
-            e.clientY
-            - rect.top;
     }
 
-    ctx.globalCompositeOperation =
-        "destination-out";
+    ctx.globalCompositeOperation = "destination-out";
 
     ctx.beginPath();
 
-    ctx.arc(
-        x,
-        y,
-        22,
-        0,
-        Math.PI * 2
-    );
+    ctx.arc(x, y, 22, 0, Math.PI * 2);
 
     ctx.fill();
 }
 
-canvas.addEventListener(
-    "mousedown",
-    () => {
-        dibujando = true;
-    }
-);
+canvas.addEventListener("mousedown", () => {
+    dibujando = true;
+});
 
-canvas.addEventListener(
-    "mouseup",
-    () => {
-        dibujando = false;
-    }
-);
+canvas.addEventListener("mouseup", () => {
+    dibujando = false;
+});
 
-canvas.addEventListener(
-    "mouseleave",
-    () => {
-        dibujando = false;
-    }
-);
+canvas.addEventListener("mousemove", rascar);
 
-canvas.addEventListener(
-    "mousemove",
-    rascar
-);
+canvas.addEventListener("touchstart", (e) => {
 
-canvas.addEventListener(
-    "touchstart",
-    (e) => {
+    dibujando = true;
+    rascar(e);
 
-        dibujando = true;
+}, { passive: false });
 
-        rascar(e);
+canvas.addEventListener("touchmove", (e) => {
 
-    },
-    { passive: false }
-);
+    e.preventDefault();
+    rascar(e);
 
-canvas.addEventListener(
-    "touchmove",
-    (e) => {
+}, { passive: false });
 
-        e.preventDefault();
-
-        rascar(e);
-
-    },
-    { passive: false }
-);
-
-canvas.addEventListener(
-    "touchend",
-    () => {
-
-        dibujando = false;
-
-    }
-);
-
-
-/* CONFIRMAR ASISTENCIA */
-
-function mostrarConfirmacion() {
-    window.open(
-        "https://docs.google.com/forms/d/e/1FAIpQLSeCIwTVLLmEXsi31U8dWNEg9ObIDLVrr-SPmxxfvCVBac0UDg/viewform?usp=publish-editor",
-        "_blank"
-    );
-}
+canvas.addEventListener("touchend", () => {
+    dibujando = false;
+});
 
 </script>
 
